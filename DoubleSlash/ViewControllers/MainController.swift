@@ -11,13 +11,27 @@ class MainController: NSViewController, NSTextViewDelegate {
 
     // MARK: - Properties
 
+    static let storyboardId = "MainControllerId"
+
     @IBOutlet var textView: NSTextView!
 
     private let CloseSquareBracketKeyCode: UInt16 = 30
     private let OpenSquareBracketKeyCode: UInt16 = 33
     private var lines = [String]()
+    private var doc: SlashDoc!
 
     // MARK: - Init
+
+    static func createControllerFor(doc: SlashDoc?) -> MainController {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateController(withIdentifier: MainController.storyboardId) as! MainController
+        if let doc = doc {
+            controller.doc = doc
+        } else {
+            controller.doc = DocManager.shared.createDoc()
+        }
+        return controller
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,19 +42,26 @@ class MainController: NSViewController, NSTextViewDelegate {
     private func setupTextView() {
         textView.setUpLineNumberView()
         textView.font = NSFont(name: "RobotoMono-Medium", size: 13)
-        textView.string = "// TODO:\n========\n"
-        updateLines(string: textView.string)
     }
 
     override func viewWillAppear() {
         super.viewWillAppear()
-        updateWindowTitle()
+        if doc.text.count == 0 {
+            textView.string = "// TODO:\n========\n"
+        } else {
+            textView.string = doc.text
+        }
+        updateText()
     }
 
     // MARK: - Helpers
 
-    private func updateLines(string: String) {
-        lines = string.components(separatedBy: "\n")
+    private func updateText(updatedText: String? = nil) {
+        let text = updatedText ?? textView.string
+        lines = text.components(separatedBy: "\n")
+        doc.text = text
+        DocManager.shared.save()
+        updateWindowTitle()
     }
 
     private func updateWindowTitle() {
@@ -51,7 +72,7 @@ class MainController: NSViewController, NSTextViewDelegate {
 
     func textView(_ textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
             if commandSelector == #selector(insertNewline) {
-            updateLines(string: textView.string)
+            updateText()
             textView.string = textView.string + "\n"
             if let lastLine = lines.last {
                 let tabs = lastLine.components(separatedBy: "\t")
@@ -73,6 +94,7 @@ class MainController: NSViewController, NSTextViewDelegate {
         }
         else if commandSelector == #selector(insertTab) {
             textView.string = textView.string + "\t"
+            updateText()
             return true
         } else {
             return false
@@ -81,8 +103,7 @@ class MainController: NSViewController, NSTextViewDelegate {
 
     func textView(_ textView: NSTextView, shouldChangeTextIn affectedCharRange: NSRange, replacementString: String?) -> Bool {
         let updatedString = textView.string.replacingCharacters(in: affectedCharRange.toRange(textView.string), with: replacementString!) as String
-        updateLines(string: updatedString)
-        updateWindowTitle()
+        updateText(updatedText: updatedString)
         return true
     }
 

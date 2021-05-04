@@ -7,17 +7,28 @@
 
 import Cocoa
 
+// MARK: - Protocols
+
 protocol TabDelegate: class {
-    func createTab(newWindowController: WindowController,
-                   inWindow window: NSWindow,
-                   ordered orderingMode: NSWindow.OrderingMode)
+    func createTab(newWindowController: WindowController, inWindow window: NSWindow, ordered orderingMode: NSWindow.OrderingMode)
 }
 
 class WindowController: NSWindowController {
 
-    static func create() -> WindowController {
-        let windowStoryboard = NSStoryboard(name: "WindowController", bundle: nil)
-        return windowStoryboard.instantiateInitialController() as! WindowController
+    // MARK: - Properties
+
+    static let storyboardId = "WindowControllerId"
+
+    weak var tabDelegate: TabDelegate?
+
+    // MARK: - Init
+
+    static func create(doc: SlashDoc? = nil) -> WindowController {
+        let windowStoryboard = NSStoryboard(name: "Main", bundle: nil)
+        let windowController = windowStoryboard.instantiateController(withIdentifier: WindowController.storyboardId) as! WindowController
+        let mainController = MainController.createControllerFor(doc: doc)
+        windowController.contentViewController = mainController
+        return windowController
     }
 
     override func windowDidLoad() {
@@ -25,17 +36,13 @@ class WindowController: NSWindowController {
         self.window!.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
     }
 
-    weak var tabDelegate: TabDelegate?
+    // MARK: - TabDelegate
 
     override func newWindowForTab(_ sender: Any?) {
-
         guard let window = self.window else { preconditionFailure("Expected window to be loaded") }
         guard let tabDelegate = self.tabDelegate else { return }
 
-        tabDelegate.createTab(newWindowController: WindowController.create(),
-                              inWindow: window,
-                              ordered: .above)
-
+        tabDelegate.createTab(newWindowController: WindowController.create(), inWindow: window, ordered: .above)
     }
 
 }
