@@ -110,11 +110,6 @@ class MainController: NSViewController, NSTextViewDelegate {
                 }
             }
             return true
-        }
-        else if commandSelector == #selector(insertTab) {
-            textView.string = textView.string + "\t"
-            updateText()
-            return true
         } else {
             return false
         }
