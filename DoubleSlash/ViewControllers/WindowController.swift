@@ -35,6 +35,8 @@ class WindowController: NSWindowController, NSWindowDelegate {
         super.windowDidLoad()
         self.window!.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
         self.window!.delegate = self
+        self.window!.title = "Double Slash"
+
     }
 
     // MARK: - TabDelegate

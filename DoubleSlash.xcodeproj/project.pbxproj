@@ -23,7 +23,7 @@
 /* Begin PBXFileReference section */
 		78AD68C32641BE9E0037CB4B /* SlashDoc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashDoc.swift; sourceTree = "<group>"; };
 		78AD68C62641BEC60037CB4B /* DocManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocManager.swift; sourceTree = "<group>"; };
-		78CDC8C02641AE0800724C6F /* DoubleSlash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoubleSlash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		78CDC8C02641AE0800724C6F /* Double Slash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Double Slash.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78CDC8C32641AE0800724C6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78CDC8C52641AE0800724C6F /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		78CDC8C72641AE0900724C6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 		78CDC8C12641AE0800724C6F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				78CDC8C02641AE0800724C6F /* DoubleSlash.app */,
+				78CDC8C02641AE0800724C6F /* Double Slash.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,7 +149,7 @@
 			);
 			name = DoubleSlash;
 			productName = DoubleSlash;
-			productReference = 78CDC8C02641AE0800724C6F /* DoubleSlash.app */;
+			productReference = 78CDC8C02641AE0800724C6F /* Double Slash.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -350,7 +350,7 @@
 				CODE_SIGN_ENTITLEMENTS = DoubleSlash/DoubleSlash.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = MJA8334VZT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DoubleSlash/Info.plist;
@@ -359,7 +359,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zigamajiag.DoubleSlash;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Double Slash";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -372,7 +372,7 @@
 				CODE_SIGN_ENTITLEMENTS = DoubleSlash/DoubleSlash.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = MJA8334VZT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DoubleSlash/Info.plist;
@@ -381,7 +381,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zigamajiag.DoubleSlash;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Double Slash";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

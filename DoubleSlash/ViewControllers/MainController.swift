@@ -61,11 +61,7 @@ class MainController: NSViewController, NSTextViewDelegate {
         lines = text.components(separatedBy: "\n")
         doc.text = text
         DocManager.shared.save()
-        updateWindowTitle()
-    }
-
-    private func updateWindowTitle() {
-        self.view.window?.title = lines.first ?? "New Window"
+        self.view.window?.tab.title = lines.first ?? "New Window"
     }
 
     func askToClose() -> Bool {
