@@ -66,4 +66,14 @@ class DocManager {
         return doc
     }
 
+    func remove(doc: SlashDoc) {
+        for (i, curDoc) in docs.enumerated() {
+            if curDoc.id == doc.id {
+                docs.remove(at: i)
+                save()
+                break
+            }
+        }
+    }
+
 }

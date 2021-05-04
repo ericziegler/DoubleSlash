@@ -13,7 +13,7 @@ protocol TabDelegate: class {
     func createTab(newWindowController: WindowController, inWindow window: NSWindow, ordered orderingMode: NSWindow.OrderingMode)
 }
 
-class WindowController: NSWindowController {
+class WindowController: NSWindowController, NSWindowDelegate {
 
     // MARK: - Properties
 
@@ -34,6 +34,7 @@ class WindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         self.window!.appearance = NSAppearance(named: NSAppearance.Name.vibrantDark)
+        self.window!.delegate = self
     }
 
     // MARK: - TabDelegate
@@ -43,6 +44,25 @@ class WindowController: NSWindowController {
         guard let tabDelegate = self.tabDelegate else { return }
 
         tabDelegate.createTab(newWindowController: WindowController.create(), inWindow: window, ordered: .above)
+    }
+
+    // MARK: - NSWindowDelegate
+
+    func askToClose() -> Bool {
+        guard let mainController = self.window?.contentViewController as? MainController else {
+            return false
+        }
+
+        if mainController.askToClose() == true {
+            mainController.prepareToClose()
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        return askToClose()
     }
 
 }

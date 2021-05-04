@@ -18,7 +18,7 @@ class MainController: NSViewController, NSTextViewDelegate {
     private let CloseSquareBracketKeyCode: UInt16 = 30
     private let OpenSquareBracketKeyCode: UInt16 = 33
     private var lines = [String]()
-    private var doc: SlashDoc!
+    var doc: SlashDoc!
 
     // MARK: - Init
 
@@ -66,6 +66,25 @@ class MainController: NSViewController, NSTextViewDelegate {
 
     private func updateWindowTitle() {
         self.view.window?.title = lines.first ?? "New Window"
+    }
+
+    func askToClose() -> Bool {
+        let alert = NSAlert()
+        alert.messageText = "Are you sure you would like to close this document?"
+        alert.informativeText = "This action cannot be undone."
+        alert.alertStyle = NSAlert.Style.warning
+        alert.addButton(withTitle: "Close")
+        alert.addButton(withTitle: "Cancel")
+        let response = alert.runModal()
+        if response == .alertFirstButtonReturn {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func prepareToClose() {
+        DocManager.shared.remove(doc: doc)
     }
 
     // MARK: - NSTextViewDelegate
