@@ -18,6 +18,20 @@ class MainController: NSViewController, NSTextViewDelegate {
     private let CloseSquareBracketKeyCode: UInt16 = 30
     private let OpenSquareBracketKeyCode: UInt16 = 33
     private var lines = [String]()
+    private var endingLinePositions = [Int]()
+    private var cursorPosition: Int {
+        return textView.selectedRanges.first?.rangeValue.location ?? 0
+    }
+    private var curLineNumber: Int {
+        if endingLinePositions.count > 0 {
+            for (i, curEndPosition) in endingLinePositions.enumerated() {
+                if cursorPosition < curEndPosition {
+                    return i
+                }
+            }
+        }
+        return 0
+    }
     var doc: SlashDoc!
 
     // MARK: - Init
@@ -41,16 +55,12 @@ class MainController: NSViewController, NSTextViewDelegate {
 
     private func setupTextView() {
         textView.setUpLineNumberView()
-        textView.font = NSFont(name: "RobotoMono-Medium", size: 13)
+        textView.font = NSFont(name: "RobotoMono-Medium", size: 12)
     }
 
     override func viewWillAppear() {
         super.viewWillAppear()
-        if doc.text.count == 0 {
-            textView.string = "// TODO:\n========\n"
-        } else {
-            textView.string = doc.text
-        }
+        textView.string = doc.text
         updateText()
     }
 
@@ -61,7 +71,18 @@ class MainController: NSViewController, NSTextViewDelegate {
         lines = text.components(separatedBy: "\n")
         doc.text = text
         DocManager.shared.save()
-        self.view.window?.tab.title = lines.first ?? "New Window"
+        endingLinePositions.removeAll()
+        var charCount = 0
+        for i in 0..<lines.count {
+            // add one to the character count to include the \n
+            charCount = charCount + lines[i].count + 1
+            endingLinePositions.append(charCount)
+        }
+        if let firstLine = lines.first, firstLine.count > 0 {
+            self.view.window?.tab.title = firstLine
+        } else {
+            self.view.window?.tab.title = "New Window"
+        }
     }
 
     func askToClose() -> Bool {
@@ -86,25 +107,29 @@ class MainController: NSViewController, NSTextViewDelegate {
     // MARK: - NSTextViewDelegate
 
     func textView(_ textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-            if commandSelector == #selector(insertNewline) {
+        if commandSelector == #selector(insertNewline(_:)) {
             updateText()
-            textView.string = textView.string + "\n"
-            if let lastLine = lines.last {
-                let tabs = lastLine.components(separatedBy: "\t")
-                var tabCount = 0
-                for curTab in tabs {
-                    if curTab.count == 0 {
-                        tabCount += 1
-                    } else {
-                        break
-                    }
-                }
-                if tabCount > 0 {
-                    for _ in 0 ..< tabCount {
-                        textView.string += "\t"
-                    }
+            let curLine = lines[curLineNumber]
+            // split on tabs, loop through, and determine how many are at the start of the line
+            let tabs = curLine.components(separatedBy: "\t")
+            var tabCount = 0
+            for curTab in tabs {
+                if curTab.count == 0 {
+                    tabCount += 1
+                } else {
+                    break
                 }
             }
+            // add the number of tabs to the new line
+            var stringToInsert = "\n"
+            if tabCount > 0 {
+                for _ in 0 ..< tabCount {
+                    stringToInsert += "\t"
+                }
+            }
+
+            textView.insertText(stringToInsert, replacementRange: textView.selectedRange())
+            updateText()
             return true
         } else {
             return false
