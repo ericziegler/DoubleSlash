@@ -55,7 +55,7 @@ class MainController: NSViewController, NSTextViewDelegate {
 
     private func setupTextView() {
         textView.setUpLineNumberView()
-        textView.font = NSFont(name: "RobotoMono-Medium", size: 12)
+        textView.font = NSFont(name: "RobotoMono-Medium", size: 11)
     }
 
     override func viewWillAppear() {
@@ -81,7 +81,7 @@ class MainController: NSViewController, NSTextViewDelegate {
         if let firstLine = lines.first, firstLine.count > 0 {
             self.view.window?.tab.title = firstLine
         } else {
-            self.view.window?.tab.title = "New Window"
+            self.view.window?.tab.title = "New Document"
         }
     }
 
