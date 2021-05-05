@@ -13,11 +13,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Properties
 
     var tabService: TabService!
+    private var hasSavedTabOrder = false
 
     // MARK: - UIApplicationDelegate
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         replaceTabServiceWithInitialWindow()
+    }
+
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        if hasSavedTabOrder == false {
+            saveTabOrder()
+            return .terminateLater
+        } else {
+            return .terminateNow
+        }
     }
 
     // MARK: - Actions
@@ -44,6 +54,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 tabService.createTab(newWindowController: WindowController.create(doc: doc), inWindow: tabService.mainWindow!, ordered: .above)
             }
         }
+    }
+
+    private func saveTabOrder() {
+        if let tabbedWindows = tabService.mainWindow?.tabbedWindows {
+            for (i, curWindow) in tabbedWindows.enumerated() {
+                if let mainController = curWindow.contentViewController as? MainController {
+                    mainController.doc.index = i
+                }
+            }
+        }
+        DocManager.shared.save()
+        hasSavedTabOrder = true
+        NSApp.terminate(self)
     }
 
 }
