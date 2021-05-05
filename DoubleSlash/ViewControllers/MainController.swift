@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class MainController: NSViewController, NSTextViewDelegate {
+class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
 
     // MARK: - Properties
 
@@ -61,6 +61,7 @@ class MainController: NSViewController, NSTextViewDelegate {
     override func viewWillAppear() {
         super.viewWillAppear()
         textView.string = doc.text
+        updateTextColor()
         updateText()
     }
 
@@ -83,6 +84,10 @@ class MainController: NSViewController, NSTextViewDelegate {
         } else {
             self.view.window?.tab.title = "New Document"
         }
+    }
+
+    private func updateTextColor() {
+        textView.textColor = doc.color.value
     }
 
     func askToClose() -> Bool {
@@ -140,6 +145,26 @@ class MainController: NSViewController, NSTextViewDelegate {
         let updatedString = textView.string.replacingCharacters(in: affectedCharRange.toRange(textView.string), with: replacementString!) as String
         updateText(updatedText: updatedString)
         return true
+    }
+
+    @IBAction func colorTapped(_ sender: Any?) {
+        if let menuItem = sender as? NSMenuItem, let color = SlashDocColor(rawValue: menuItem.tag) {
+            doc.color = color
+            DocManager.shared.save()
+            updateTextColor()
+        }
+    }
+
+    // MARK: - NSMenuDelegate
+
+    func menuWillOpen(_ menu: NSMenu) {
+        for curItem in menu.items {
+            if curItem.tag == doc.color.rawValue {
+                curItem.state = .on
+            } else {
+                curItem.state = .off
+            }
+        }
     }
 
     // MARK: - Events

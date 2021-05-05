@@ -312,6 +312,58 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Color" id="O8v-Nt-w6p">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Color" autoenablesItems="NO" id="R1o-oa-NTd">
+                                    <items>
+                                        <menuItem title="Blue" state="on" id="OrP-rg-S7O">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="colorTapped:" target="Ady-hI-5gd" id="Das-ui-SMU"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Red" tag="1" id="2rv-bc-OUZ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="colorTapped:" target="Ady-hI-5gd" id="7nf-qo-hpi"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Orange" tag="2" id="Uha-FT-t9R">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="colorTapped:" target="Ady-hI-5gd" id="OSQ-jG-yQG"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Purple" tag="3" id="VXi-ou-ltB">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="colorTapped:" target="Ady-hI-5gd" id="laH-Pk-HPw"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Green" tag="4" id="mWp-sH-sor">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="colorTapped:" target="Ady-hI-5gd" id="pXn-T9-Som"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Yellow" tag="5" id="Bwf-cF-zzA">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="colorTapped:" target="Ady-hI-5gd" id="lpH-um-ajN"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="White" tag="6" id="Ga6-nC-Ccw">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="colorTapped:" target="Ady-hI-5gd" id="sVG-OO-Vxg"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="L57-c2-1jl"/>
+                                    </connections>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">

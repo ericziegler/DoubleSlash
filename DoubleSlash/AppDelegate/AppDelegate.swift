@@ -8,11 +8,11 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     // MARK: - Properties
 
-    var tabService: TabService!
+    private var tabService: TabService!
     private var hasSavedTabOrder = false
 
     // MARK: - UIApplicationDelegate
@@ -67,6 +67,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DocManager.shared.save()
         hasSavedTabOrder = true
         NSApp.terminate(self)
+    }
+
+    // MARK: - NSMenuDelegate
+
+    func menuWillOpen(_ menu: NSMenu) {
+        if let curWindow = tabService.mainWindow, let mainController = curWindow.contentViewController as? MainController {
+            let colorInt = mainController.doc.color.rawValue
+            for curItem in menu.items {
+                if curItem.tag == colorInt {
+                    curItem.state = .on
+                } else {
+                    curItem.state = .off
+                }
+            }
+        }
     }
 
 }
