@@ -14,6 +14,7 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
     static let storyboardId = "MainControllerId"
 
     @IBOutlet var textView: NSTextView!
+    @IBOutlet var cursorLabel: NSTextField!
 
     private let CloseSquareBracketKeyCode: UInt16 = 30
     private let OpenSquareBracketKeyCode: UInt16 = 33
@@ -63,6 +64,7 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
         textView.string = doc.text
         updateTextColor()
         updateText()
+        updateCursorLabel()
     }
 
     // MARK: - Helpers
@@ -90,6 +92,30 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
         textView.textColor = doc.color.value
     }
 
+    private func updateCursorLabel() {
+        if textView.selectedRange().length > 0 {
+
+        } else {
+            var offset = 0
+            for i in 0..<curLineNumber {
+                offset += lines[i].count + 1
+            }
+            var curColumn = textView.selectedRange().location - offset
+            var tabSpacing = 0
+            if lines.count > 0 {
+                for i in 0..<curColumn {
+                    if lines[curLineNumber][i] == "\t" {
+                        // add 3 spaces for each tab leading up to the cursor position
+                        tabSpacing += 3
+                    }
+                }
+            }
+            curColumn += tabSpacing
+            curColumn += 1 // new line
+            cursorLabel.stringValue = "Line \(curLineNumber + 1), Column \(curColumn)"
+        }
+    }
+
     func askToClose() -> Bool {
         let alert = NSAlert()
         alert.messageText = "Are you sure you would like to close this document?"
@@ -107,6 +133,16 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
 
     func prepareToClose() {
         DocManager.shared.remove(doc: doc)
+    }
+
+    // MARK: - Actions
+
+    @IBAction func colorTapped(_ sender: Any?) {
+        if let menuItem = sender as? NSMenuItem, let color = SlashDocColor(rawValue: menuItem.tag) {
+            doc.color = color
+            DocManager.shared.save()
+            updateTextColor()
+        }
     }
 
     // MARK: - NSTextViewDelegate
@@ -149,12 +185,8 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
         return true
     }
 
-    @IBAction func colorTapped(_ sender: Any?) {
-        if let menuItem = sender as? NSMenuItem, let color = SlashDocColor(rawValue: menuItem.tag) {
-            doc.color = color
-            DocManager.shared.save()
-            updateTextColor()
-        }
+    func textViewDidChangeSelection(_ notification: Notification) {
+        updateCursorLabel()
     }
 
     // MARK: - NSMenuDelegate
