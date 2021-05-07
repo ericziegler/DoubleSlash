@@ -118,11 +118,13 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
             // split on tabs, loop through, and determine how many are at the start of the line
             let tabs = curLine.components(separatedBy: "\t")
             var tabCount = 0
-            for curTab in tabs {
-                if curTab.count == 0 {
-                    tabCount += 1
-                } else {
-                    break
+            if tabs.count > 1 {
+                for curTab in tabs {
+                    if curTab.count == 0 {
+                        tabCount += 1
+                    } else {
+                        break
+                    }
                 }
             }
             // add the number of tabs to the new line
