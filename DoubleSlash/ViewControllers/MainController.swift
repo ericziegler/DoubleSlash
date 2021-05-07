@@ -94,7 +94,7 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
 
     private func updateCursorLabel() {
         if textView.selectedRange().length > 0 {
-
+            cursorLabel.stringValue = "\(textView.selectedRange().length) characters selected"
         } else {
             var offset = 0
             for i in 0..<curLineNumber {
@@ -112,7 +112,8 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
             }
             curColumn += tabSpacing
             curColumn += 1 // new line
-            cursorLabel.stringValue = "Line \(curLineNumber + 1), Column \(curColumn)"
+            let strippedText = textView.string.replacingOccurrences(of: "\t", with: "    ").replacingOccurrences(of: "\n", with: "")
+            cursorLabel.stringValue = "Line \(curLineNumber + 1), Column \(curColumn) - Total Characters: \(strippedText.count)"
         }
     }
 
