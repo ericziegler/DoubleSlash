@@ -434,7 +434,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="900" height="677"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" id="DlJ-4y-FJF">
+                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" incrementalSearchingEnabled="YES" allowsUndo="YES" id="DlJ-4y-FJF">
                                             <rect key="frame" x="0.0" y="0.0" width="900" height="677"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" red="0.0" green="0.63921568627450975" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>

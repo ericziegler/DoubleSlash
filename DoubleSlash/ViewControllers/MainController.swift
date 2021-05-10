@@ -103,8 +103,9 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
             var curColumn = textView.selectedRange().location - offset
             var tabSpacing = 0
             if lines.count > 0 {
+                let curLine = lines[curLineNumber]
                 for i in 0..<curColumn {
-                    if lines[curLineNumber][i] == "\t" {
+                    if curLine[i] == "\t" {
                         // add 3 spaces for each tab leading up to the cursor position
                         tabSpacing += 3
                     }
@@ -212,8 +213,11 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
     }
 
     override func keyDown(with event: NSEvent) {
+        guard let window = textView.window, let tabGroup = window.tabGroup, tabGroup.selectedWindow == window else {
+            return
+        }
+
         if event.modifierFlags.intersection(.deviceIndependentFlagsMask) == .command {
-//            let curorPosition = textView.selectedRanges.first?.rangeValue.location ?? 0
             if event.keyCode == OpenSquareBracketKeyCode {
                 // indent highlighted text backward
                 if textView.selectedRange().length > 0 {

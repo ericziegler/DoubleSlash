@@ -62,6 +62,10 @@ class SlashDoc: NSObject, NSCoding {
 
     init(index: Int) {
         self.id = UUID().uuidString
+        let random = Int.random(in: 0..<6)
+        if let randomColor = SlashDocColor(rawValue: random) {
+            self.color = randomColor
+        }
         self.index = index
     }
 
