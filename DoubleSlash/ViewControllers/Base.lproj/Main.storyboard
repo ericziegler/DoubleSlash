@@ -429,17 +429,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fde-u9-fQh">
-                                <rect key="frame" x="0.0" y="23" width="900" height="677"/>
+                                <rect key="frame" x="0.0" y="19" width="900" height="681"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Mdc-gI-o1D">
-                                    <rect key="frame" x="0.0" y="0.0" width="900" height="677"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="900" height="681"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" incrementalSearchingEnabled="YES" allowsUndo="YES" id="DlJ-4y-FJF">
-                                            <rect key="frame" x="0.0" y="0.0" width="900" height="677"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="900" height="681"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" red="0.0" green="0.63921568627450975" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <size key="minSize" width="900" height="677"/>
+                                            <size key="minSize" width="900" height="681"/>
                                             <size key="maxSize" width="1000" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
@@ -454,14 +454,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="kSy-m0-eDO">
-                                    <rect key="frame" x="884" y="0.0" width="16" height="677"/>
+                                    <rect key="frame" x="884" y="0.0" width="16" height="681"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="RdB-iz-VEh" userLabel="Separator">
-                                <rect key="frame" x="0.0" y="23" width="900" height="0.0"/>
+                                <rect key="frame" x="0.0" y="18" width="900" height="1"/>
                                 <view key="contentView" id="qEI-DH-Zn6">
-                                    <rect key="frame" x="0.0" y="0.0" width="900" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="900" height="1"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <constraints>
@@ -470,26 +470,46 @@
                                 <color key="borderColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </box>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fTl-C9-1Gv">
-                                <rect key="frame" x="3" y="6" width="894" height="12"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Line 0, Column 0" id="mwb-do-V3o">
-                                    <font key="font" size="11" name="HelveticaNeue"/>
-                                    <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                            <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="M6X-pB-ftg" userLabel="Info Container">
+                                <rect key="frame" x="0.0" y="0.0" width="900" height="18"/>
+                                <view key="contentView" id="hR6-dZ-Vut">
+                                    <rect key="frame" x="0.0" y="0.0" width="900" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fTl-C9-1Gv">
+                                            <rect key="frame" x="10" y="3" width="880" height="12"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="12" id="hjO-bb-xS3"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Line 0, Column 0" id="mwb-do-V3o">
+                                                <font key="font" size="11" name="HelveticaNeue"/>
+                                                <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="fTl-C9-1Gv" secondAttribute="bottom" constant="3" id="pkt-qv-TZc"/>
+                                        <constraint firstItem="fTl-C9-1Gv" firstAttribute="top" secondItem="hR6-dZ-Vut" secondAttribute="top" constant="3" id="sPS-aa-Fvk"/>
+                                        <constraint firstItem="fTl-C9-1Gv" firstAttribute="leading" secondItem="hR6-dZ-Vut" secondAttribute="leading" constant="12" id="uKr-yE-pr9"/>
+                                        <constraint firstAttribute="trailing" secondItem="fTl-C9-1Gv" secondAttribute="trailing" constant="12" id="xd3-xa-VwB"/>
+                                    </constraints>
+                                </view>
+                                <color key="borderColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="fillColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                            </box>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fde-u9-fQh" secondAttribute="trailing" id="4bN-gJ-KD0"/>
-                            <constraint firstItem="fTl-C9-1Gv" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="5" id="5hg-4m-WAq"/>
-                            <constraint firstAttribute="bottom" secondItem="fTl-C9-1Gv" secondAttribute="bottom" constant="6" id="CWx-gn-aPQ"/>
-                            <constraint firstItem="fde-u9-fQh" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="DIW-CZ-lHn"/>
+                            <constraint firstItem="M6X-pB-ftg" firstAttribute="top" secondItem="RdB-iz-VEh" secondAttribute="bottom" id="8Bo-VT-L63"/>
+                            <constraint firstItem="M6X-pB-ftg" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="8pD-Sl-OnG"/>
                             <constraint firstAttribute="trailing" secondItem="RdB-iz-VEh" secondAttribute="trailing" id="Gf7-4S-Ymk"/>
+                            <constraint firstAttribute="trailing" secondItem="M6X-pB-ftg" secondAttribute="trailing" id="LSp-5Z-jJH"/>
                             <constraint firstItem="RdB-iz-VEh" firstAttribute="top" secondItem="fde-u9-fQh" secondAttribute="bottom" id="Xdg-sh-aon"/>
+                            <constraint firstItem="fde-u9-fQh" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="aEF-6G-1OU"/>
+                            <constraint firstAttribute="bottom" secondItem="M6X-pB-ftg" secondAttribute="bottom" id="cwC-Gh-2So"/>
                             <constraint firstItem="RdB-iz-VEh" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="g7z-zl-r2U"/>
                             <constraint firstItem="fde-u9-fQh" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="m3n-pM-qFN"/>
-                            <constraint firstAttribute="trailing" secondItem="fTl-C9-1Gv" secondAttribute="trailing" constant="5" id="pzc-Dg-8Z0"/>
-                            <constraint firstItem="fTl-C9-1Gv" firstAttribute="top" secondItem="fde-u9-fQh" secondAttribute="bottom" constant="5" id="qI1-oU-EhI"/>
                         </constraints>
                     </view>
                     <connections>
