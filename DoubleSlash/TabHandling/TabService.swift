@@ -23,8 +23,19 @@ class TabService: TabDelegate {
     /// Falls back the first element if no window is main. Note that this would
     /// likely be an internal inconsistency we gracefully handle here.
     var mainWindow: NSWindow? {
-        let mainManagedWindow = managedWindows
-            .first { $0.window.isMainWindow }
+        var mainManagedWindow: ManagedWindow?
+
+        for curManagedWindow in managedWindows {
+            if curManagedWindow.window.isMainWindow == true {
+                mainManagedWindow = curManagedWindow
+                break
+            }
+        }
+        if mainManagedWindow == nil && managedWindows.count > 0 {
+            mainManagedWindow = managedWindows.first!
+        }
+//        let mainManagedWindow = managedWindows
+//            .first { $0.window.isMainWindow }
 
         // In case we run into the inconsistency, let it crash in debug mode so we
         // can fix our window management setup to prevent this from happening.
