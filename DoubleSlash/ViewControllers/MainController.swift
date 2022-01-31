@@ -56,7 +56,7 @@ class MainController: NSViewController, NSTextViewDelegate, NSMenuDelegate {
 
     private func setupTextView() {
         textView.setUpLineNumberView()
-        textView.font = NSFont(name: "RobotoMono-Medium", size: 11)
+        textView.font = NSFont(name: "Courier New Bold", size: 16)
     }
 
     override func viewWillAppear() {
